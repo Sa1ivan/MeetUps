@@ -1,0 +1,68 @@
+.navbar{
+    max-width: 1440px;
+    height: 120px;
+    background-color: #2C2C2C;
+    margin: 0 auto;
+    box-sizing: border-box;
+}
+
+.navbar__container{
+    display: flex;
+    height: 120px;
+    align-items: center;
+    justify-content: space-evenly;
+}
+
+.navbar__logo{
+    width: 420px;
+    height: 76px;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: contain;
+}
+
+.navbar__pages{
+    margin-left: 81px;
+    width: 580px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.navbar__page{
+    font-family: 'Cherry Bomb', sans-serif;
+    font-size: 24px;
+    font-weight: 400;
+    line-height: 24px;
+    text-align: left;
+    color: #E9E9E9;
+    opacity: 1;
+    transition: .5s opacity ease-in-out;
+}
+
+.navbar__page:hover{
+    cursor: pointer;
+    opacity: .8;
+    transition: .5s opacity ease-in-out;
+}
+
+.active{
+    border-bottom: 10px solid #B85526;
+    border-radius: 10px;
+}
+
+.navbar__btns{
+    width: 120px;
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.navbar__btn{
+    opacity: 1;
+    transition: .5s opacity ease-in-out;
+}
+
+.navbar__btn:hover{
+    cursor: pointer;
+    opacity: .8;
+    transition: .5s opacity ease-in-out;
+}
