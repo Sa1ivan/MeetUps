@@ -2,7 +2,7 @@
     max-width: 1360px;
     height: 162px;
     background-color: #2C2C2C;
-    margin: 0 auto;
+    margin: 0 auto 50px;
     box-sizing: border-box;
     box-sizing: border-box;
 }
@@ -135,4 +135,84 @@
 .record__arrow{
     display: flex;
     margin: auto;
+}
+
+.record_open{
+    max-width: 1360px;
+    min-height: 162px;
+    background-color: #2C2C2C;
+    margin: 0 auto 50px;
+    box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+.record__container_open{
+    max-width: 1360px;
+    min-height: 162px;
+    display: grid;
+    grid-template-rows: max-content 1fr max-content;
+}
+
+.record__description_open{
+    margin: 0 0 10px 18px;
+    max-width: 1062px;
+    font-family: sans-serif;
+    font-size: 18px;
+    font-weight: 400;
+    line-height: 24.51px;
+    color: #B4B4C0;
+    display: flex;
+    justify-items: flex-start;
+}
+
+.record__people{
+    margin: 0 0 10px 20px;
+}
+
+.record__people-title{
+    margin: 0;
+    font-family: sans-serif;
+    font-size: 20px;
+    font-weight: 400;
+    line-height: 27.24px;
+    color: #E9E9E9;
+}
+
+.record__people-info{
+    font-family: sans-serif;
+    font-size: 18px;
+    font-weight: 400;
+    line-height: 24.51px;
+    color: #B4B4C0;
+    margin-top: 4px;
+    margin-left: 11px;
+}
+
+.record__require{
+    margin: 0 0 10px 20px;
+}
+
+.record__will{
+    margin: 0 0 10px 20px;
+}
+
+.record__unsub{
+    width: 160px;
+    height: 45px;
+    background-color: #B4B4C0;
+    border: none;
+    border-radius: 5px;
+    font-family: sans-serif;
+    font-size: 18px;
+    font-weight: 400;
+    line-height: 24.51px;
+    color: #E9E9E9;
+    opacity: 1;
+    transition: .5s opacity ease-in-out;
+}
+
+.record__unsub:hover{
+    cursor: pointer;
+    opacity: .8;
+    transition: .5s opacity ease-in-out;
 }
