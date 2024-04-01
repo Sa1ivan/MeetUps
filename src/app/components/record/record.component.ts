@@ -8,6 +8,8 @@ import { Component, ViewChild, TemplateRef, OnInit } from '@angular/core';
 })
 export class RecordComponent implements OnInit{
   state!:boolean;
+  buttonName!: string;
+  buttonStatus!: string;
 
   constructor(){
     this.state = true;
@@ -30,5 +32,17 @@ export class RecordComponent implements OnInit{
 
   ngOnInit(): void {
     this.thenTemplate = this.isClosed;
+    this.buttonName = "Я пойду!";
+  }
+
+  sub(){
+    if(this.buttonName == "Я пойду!"){
+      this.buttonName = "Не смогу пойти";
+      this.buttonStatus = "record__sub-grey";
+    }
+    else{
+      this.buttonName = "Я пойду!";
+      this.buttonStatus = "record__sub-green"
+    }
   }
 }

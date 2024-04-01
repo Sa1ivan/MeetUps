@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { ListComponent } from '../list/list.component';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-navbar',
@@ -7,5 +8,11 @@ import { ListComponent } from '../list/list.component';
   styleUrls: ['./navbar.component.scss']
 })
 export class NavbarComponent {
+  private router: Router = inject(Router);
+  constructor() {
 
+  }
+  logOut(){
+    this.router.navigate(['']);
+  }
 }

@@ -2,6 +2,9 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { ListComponent } from './components/list/list.component';
+import { AuthComponent } from './components/auth/auth.component';
+import { LogupComponent } from './components/logup/logup.component';
+import { UsersComponent } from './components/users/users.component';
 
 const routes: Routes = [
   {
@@ -13,13 +16,28 @@ const routes: Routes = [
         path: 'all',
         title: 'Все митапы',
         component: ListComponent,
+      },
+      {
+        path: 'auth',
+        title: 'Вход',
+        component: AuthComponent
+      },
+      {
+        path: 'logup',
+        title: 'Регистрация',
+        component: LogupComponent
+      },
+      {
+        path: 'users',
+        title: 'Пользователи',
+        component: UsersComponent
       }
     ]
   },
   {
     path: '',
     pathMatch: 'full',
-    redirectTo: 'nav/all',
+    redirectTo: 'nav/auth',
   }
 ];
 

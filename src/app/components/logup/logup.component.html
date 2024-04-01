@@ -1,0 +1,9 @@
+<section class="auth" [formGroup]="logupForm">
+    <input type="email" class="auth__login auth__input" placeholder="Login" formControlName="email">
+    <input type="password" class="auth__password auth__input" placeholder="Password" formControlName="password">
+    <input type="password" class="auth__password auth__input" placeholder="Full Name" formControlName="fullname">
+    <div class="auth__controls">
+        <button class="auth__submit" (click)="logIn()">Вернуться на экран входа</button>
+        <button type="submit" class="auth__submit" (click)="authSubmit()">Создать</button>
+    </div>
+</section>

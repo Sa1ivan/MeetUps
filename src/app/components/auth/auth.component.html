@@ -1,0 +1,8 @@
+<section class="auth" [formGroup]="authForm">
+    <input type="email" class="auth__login auth__input" placeholder="Login" formControlName="email">
+    <input type="password" class="auth__password auth__input" placeholder="Password" formControlName="password">
+    <div class="auth__controls">
+        <a class="auth__link" (click)="logUp()">How to create<br> account?</a>
+        <button type="submit" class="auth__submit" (click)="authSubmit()">Log In</button>
+    </div>
+</section>

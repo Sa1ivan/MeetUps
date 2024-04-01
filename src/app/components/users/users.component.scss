@@ -1,0 +1,103 @@
+.user{
+    max-width: 851px;
+    min-height: 60px;
+    margin: 100px auto 12px;
+    display: grid;
+    grid-template-columns: 270px 251px 192px 138px;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #2C2C2C;
+    border-radius: 5px;
+}
+
+.user__section{
+    min-width: 138px;
+    min-height: 60px;
+    border-left: 1px solid #B4B4C0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.user__section:nth-child(1){
+    border: none;
+}
+
+.user__email{
+    min-width: 50px;
+    height: 40px;
+    box-sizing: border-box;
+    text-align: center;
+    background-color: #2C2C2C;
+    color: #E9E9E9;
+    border-radius: 5px;
+    font-family: 'Open Sans', sans-serif;
+    font-size: 18px;
+    font-weight: 400;
+    line-height: 24.51px;
+}
+
+.user__password{
+    min-width: 50px;
+    height: 40px;
+    box-sizing: border-box;
+    text-align: center;
+    background-color: #2C2C2C;
+    color: #E9E9E9;
+    border-radius: 5px;
+    font-family: 'Open Sans', sans-serif;
+    font-size: 18px;
+    font-weight: 400;
+    line-height: 24.51px;
+}
+
+.user__select{
+    min-width: 120px;
+    height: 40px;
+    border-radius: 5px;
+    text-align: center;
+    background-color: #2C2C2C;
+    color: #B4B4C0;
+    font-family: 'Open Sans', sans-serif;
+    font-size: 18px;
+    font-weight: 400;
+    line-height: 24.51px;
+}
+
+.user__controls{
+    display: grid;
+    grid-template-columns: 40px 40px;
+    align-items: center;
+    justify-items: center;
+    box-sizing: border-box;
+}
+
+.user__delete{
+    padding: 5px;
+    border: 1px solid #B85526;
+    box-sizing: border-box;
+    border-radius: 3px;
+    opacity: 1;
+    transition: .5s opacity ease-in-out;
+}
+
+.user__edit{
+    padding: 5px;
+    border: 1px solid #B85526;
+    box-sizing: border-box;
+    border-radius: 3px;
+    opacity: 1;
+    transition: .5s opacity ease-in-out;
+}
+
+.user__edit:hover{
+    cursor: pointer;
+    opacity: .8;
+    transition: .5s opacity ease-in-out;
+}
+
+.user__delete:hover{
+    cursor: pointer;
+    opacity: .8;
+    transition: .5s opacity ease-in-out;
+}

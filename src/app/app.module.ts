@@ -8,6 +8,9 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ListComponent } from './components/list/list.component';
 import { RecordComponent } from './components/record/record.component';
 import { SearchComponent } from './components/search/search.component';
+import { AuthComponent } from './components/auth/auth.component';
+import { LogupComponent } from './components/logup/logup.component';
+import { UsersComponent } from './components/users/users.component';
 
 @NgModule({
   declarations: [
@@ -16,6 +19,9 @@ import { SearchComponent } from './components/search/search.component';
     ListComponent,
     RecordComponent,
     SearchComponent,
+    AuthComponent,
+    LogupComponent,
+    UsersComponent,
   ],
   imports: [
     BrowserModule,
