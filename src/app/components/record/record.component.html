@@ -6,16 +6,14 @@
     <section class="record">
         <div class="record__container">
             <div class="record__heading">
-                <h2 class="record__title">Angular</h2>
-                <span class="record__count">8 подписчик</span>
+                <h2 class="record__title">{{sMeetUp.name}}</h2>
+                <span class="record__count">{{sMeetUp.users.length}} подписчик</span>
                 <div class="record__info">
-                    <span class="record__date">11.04.2024 10:00</span>
-                    <span class="record__place">Кабинет 303</span>
+                    <span class="record__date">{{sMeetUp.time}}</span>
+                    <span class="record__place">{{sMeetUp.location}}</span>
                 </div>
             </div>
-            <div class="record__description">
-                Расскажу о том, об этом. О том, об этом. О том, об этом. О том, об этом. О том, об этом. О том, об этом. О том, об этом. О том, об этом.
-            </div>
+            <div class="record__description">{{sMeetUp.description}}</div>
             <div class="record__controls">
                 <div class="record__main">
                     <svg width="25" height="25" viewBox="0 0 33 33" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -37,7 +35,7 @@
                         </clipPath>
                         </defs>
                         </svg>
-                    <div class="record__author">Дени Хаджиев</div>
+                    <div class="record__author">{{sMeetUp.owner.fio}}</div>
                 </div>
                 <div class="record__btns">
                     <button class="record__sub {{buttonStatus}}" (click)="sub()">{{buttonName}}</button>
@@ -55,31 +53,29 @@
     <section class="record_open">
         <div class="record__container_open">
             <div class="record__heading">
-                <h2 class="record__title">Angular</h2>
-                <span class="record__count">8 подписчик</span>
+                <h2 class="record__title">{{sMeetUp.name}}</h2>
+                <span class="record__count">{{sMeetUp.users.length}} подписчик</span>
                 <div class="record__info">
-                    <span class="record__date">11.04.2024 10:00</span>
-                    <span class="record__place">Кабинет 303</span>
+                    <span class="record__date">{{sMeetUp.time}}</span>
+                    <span class="record__place">{{sMeetUp.location}}</span>
                 </div>
             </div>
-            <div class="record__description_open">
-                А здесь я ещё более подробно напишу об том, отб этом. О том, об этом. О том, об этом. О том, об этом. О том, об этом. О том, об этом. О том, об этом. О том, об этом. А здесь я ещё более подробно напишу об том, отб этом. О том, об этом. О том, об этом. О том, об этом. О том, об этом. О том, об этом. О том, об этом. О том, об этом. А здесь я ещё более подробно напишу об том, отб этом. О том, об этом. О том, об этом. О том, об этом. О том, об этом. О том, об этом. О том, об этом. О том, об этом.
-            </div>
+            <div class="record__description_open">{{sMeetUp.description}}</div>
             <div class="record__people">
                 <h3 class="record__people-title">Целевая аудитория</h3>
-                <span class="record__people-info">Разрабы, аналитики, и проч</span>
+                <span class="record__people-info">{{sMeetUp.target_audience}}</span>
             </div>
             <div class="record__require">
                 <h3 class="record__people-title">Что надо знать?</h3>
-                <div class="record__people-info">1. вот это <br>2. вот это <br>3. вот это <br>4. вот это</div>
+                <div class="record__people-info">{{sMeetUp.need_to_know}}</div>
             </div>
             <div class="record__will">
                 <h3 class="record__people-title">Что будет?</h3>
-                <div class="record__people-info">1. вот этому научу <br>2. вот это расскажу <br>3. вот этому научу <br>4. вот этому расскажу</div>
+                <div class="record__people-info">{{sMeetUp.will_happen}}</div>
             </div>
             <div class="record__people">
                 <h3 class="record__people-title">Почему надо обязательно прийти?я</h3>
-                <span class="record__people-info">У меня красный пояс по C++ </span>
+                <span class="record__people-info">{{sMeetUp.reason_to_come}}</span>
             </div>
             <div class="record__controls">
                 <div class="record__main">
@@ -102,7 +98,7 @@
                         </clipPath>
                         </defs>
                         </svg>
-                    <div class="record__author">Дени Хаджиев</div>
+                    <div class="record__author">{{sMeetUp.owner.fio}}</div>
                 </div>
                 <div class="record__btns">
                     <button class="record__sub {{buttonStatus}}" (click)="sub()">{{buttonName}}</button>

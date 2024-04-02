@@ -1,6 +1,7 @@
 import { Component, OnInit, inject } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-auth',
@@ -11,7 +12,7 @@ export class AuthComponent {
   authForm: FormGroup;
   router: Router = inject(Router);
 
-  constructor(){
+  constructor(public authService: AuthService){
     this.authForm = new FormGroup({
         email: new FormControl(null, [Validators.required, Validators.email]),
         password: new FormControl(null, [Validators.required])
@@ -22,8 +23,8 @@ export class AuthComponent {
   {
     if(this.authForm.valid)
     {
+      this.authService.logIn(this.authForm.value);
       this.authForm.reset();
-      this.router.navigate(['nav/all']);
     }
   }
 

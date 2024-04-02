@@ -11,6 +11,9 @@ import { SearchComponent } from './components/search/search.component';
 import { AuthComponent } from './components/auth/auth.component';
 import { LogupComponent } from './components/logup/logup.component';
 import { UsersComponent } from './components/users/users.component';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { AuthService } from './services/auth.service';
+import { JwtInterceptor } from './interseptors/JwtInterceptor';
 
 @NgModule({
   declarations: [
@@ -27,9 +30,15 @@ import { UsersComponent } from './components/users/users.component';
     BrowserModule,
     AppRoutingModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    HttpClientModule,
   ],
-  providers: [],
+  providers: [
+    AuthService,
+    {
+      provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

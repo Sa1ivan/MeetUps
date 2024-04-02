@@ -18,6 +18,11 @@ const routes: Routes = [
         component: ListComponent,
       },
       {
+        path: 'my',
+        title: 'Мои митапы',
+        component: ListComponent,
+      },
+      {
         path: 'auth',
         title: 'Вход',
         component: AuthComponent

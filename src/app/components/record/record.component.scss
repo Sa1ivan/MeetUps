@@ -1,6 +1,6 @@
 .record{
     max-width: 1360px;
-    height: 162px;
+    min-height: 162px;
     background-color: #2C2C2C;
     margin: 0 auto 50px;
     box-sizing: border-box;
@@ -9,7 +9,7 @@
 
 .record__container{
     width: 1360px;
-    height: 162px;
+    min-height: 162px;
 }
 
 .record__heading{
@@ -34,7 +34,7 @@
     color: #E9E9E9;
 }
 .record__count{
-    margin: auto 0 auto 8px;
+    margin: 15px 0 0 15px;
     font-family: sans-serif,'Open Sans';
     font-size: 18px;
     font-weight: 400;
@@ -58,7 +58,7 @@
 
 .record__description{
     margin: 0 0 10px 18px;
-    max-width: 1062px;
+    max-width: 1000px;
     font-family: sans-serif;
     height: 50px;
     font-size: 18px;
