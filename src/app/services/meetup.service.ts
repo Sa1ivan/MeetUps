@@ -34,7 +34,6 @@ export class MeetupService implements OnDestroy{
         }
         return null;
       }),
-      timeout(500),
       takeUntil(this.destroy$),
       catchError((e): Observable<null> => {
         console.log(e.error.message);
@@ -47,7 +46,6 @@ export class MeetupService implements OnDestroy{
     const user = this.authService.user?.id;
     return this.http.get(`${this.baseUrl}/meetup`)
     .pipe(
-      timeout(500),
       takeUntil(this.destroy$),
       catchError((e): Observable<null> => {
         console.log(e.error.message);

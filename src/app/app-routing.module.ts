@@ -5,6 +5,7 @@ import { ListComponent } from './components/list/list.component';
 import { AuthComponent } from './components/auth/auth.component';
 import { LogupComponent } from './components/logup/logup.component';
 import { UsersComponent } from './components/users/users.component';
+import { UserlistComponent } from './components/userlist/userlist.component';
 
 const routes: Routes = [
   {
@@ -35,7 +36,7 @@ const routes: Routes = [
       {
         path: 'users',
         title: 'Пользователи',
-        component: UsersComponent
+        component: UserlistComponent
       }
     ]
   },

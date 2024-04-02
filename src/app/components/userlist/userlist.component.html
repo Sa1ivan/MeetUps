@@ -1,0 +1,3 @@
+<div *ngFor="let user of userList">
+    <app-users [sUser]="user" (delete)="deleteUser(user)" (edit)="editUser(user)"></app-users>
+</div>

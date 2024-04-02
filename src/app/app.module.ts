@@ -14,6 +14,7 @@ import { UsersComponent } from './components/users/users.component';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthService } from './services/auth.service';
 import { JwtInterceptor } from './interseptors/JwtInterceptor';
+import { UserlistComponent } from './components/userlist/userlist.component';
 
 @NgModule({
   declarations: [
@@ -25,6 +26,7 @@ import { JwtInterceptor } from './interseptors/JwtInterceptor';
     AuthComponent,
     LogupComponent,
     UsersComponent,
+    UserlistComponent,
   ],
   imports: [
     BrowserModule,
