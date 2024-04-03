@@ -4,8 +4,9 @@ import { NavbarComponent } from './components/navbar/navbar.component';
 import { ListComponent } from './components/list/list.component';
 import { AuthComponent } from './components/auth/auth.component';
 import { LogupComponent } from './components/logup/logup.component';
-import { UsersComponent } from './components/users/users.component';
 import { UserlistComponent } from './components/userlist/userlist.component';
+import { authGuard } from './guards/auth.guard';
+import { adminGuard } from './guards/admin.guard';
 
 const routes: Routes = [
   {
@@ -17,11 +18,13 @@ const routes: Routes = [
         path: 'all',
         title: 'Все митапы',
         component: ListComponent,
+        canActivate: [authGuard]
       },
       {
         path: 'my',
         title: 'Мои митапы',
         component: ListComponent,
+        canActivate: [authGuard]
       },
       {
         path: 'auth',
@@ -36,7 +39,8 @@ const routes: Routes = [
       {
         path: 'users',
         title: 'Пользователи',
-        component: UserlistComponent
+        component: UserlistComponent,
+        canActivate: [authGuard, adminGuard]
       }
     ]
   },

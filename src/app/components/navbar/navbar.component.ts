@@ -1,10 +1,8 @@
-import { Component, EventEmitter, OnInit, Output, createComponent, inject } from '@angular/core';
-import { ListComponent } from '../list/list.component';
+import { Component, EventEmitter, OnInit, Output, inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
 import { MeetupService } from 'src/app/services/meetup.service';
-import { MeetUp } from 'src/app/interfaces/meetup';
-import { catchError, map, Observable, of, Subject, tap } from 'rxjs';
+import { tap } from 'rxjs';
 import { MatDialog } from '@angular/material/dialog';
 import { CreateModalComponent } from '../create-modal/create-modal.component';
 
@@ -14,19 +12,24 @@ import { CreateModalComponent } from '../create-modal/create-modal.component';
   styleUrls: ['./navbar.component.scss']
 })
 export class NavbarComponent implements OnInit{
+
   private router: Router = inject(Router);
+  public authSrvs: AuthService = inject(AuthService);
   userRole!: any;
+
   constructor(private authService: AuthService, private meetUpsService: MeetupService, private modal: MatDialog) {
+    this.userRole = this.authSrvs.user?.roles[0].name + "";
   }
 
   ngOnInit(): void {
-    this.userRole = this.authService.user?.roles[0].name;
+
   }
+
+  @Output() getAllMeetUps = new EventEmitter();
 
   logOut(){
     this.authService.logout();
   }
-  @Output() getAllMeetUps = new EventEmitter();
 
   getMeetUps(){
     this.meetUpsService.getMeetups().pipe(
