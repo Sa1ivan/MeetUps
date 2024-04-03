@@ -53,6 +53,7 @@
     width: 120px;
     display: flex;
     justify-content: space-evenly;
+    align-items: center;
 }
 
 .navbar__btn{
@@ -64,4 +65,8 @@
     cursor: pointer;
     opacity: .8;
     transition: .5s opacity ease-in-out;
+}
+
+.navbar__add{
+    color: #B85526;
 }

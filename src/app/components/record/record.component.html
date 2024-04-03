@@ -7,7 +7,7 @@
         <div class="record__container">
             <div class="record__heading">
                 <h2 class="record__title">{{sMeetUp.name}}</h2>
-                <span class="record__count">{{sMeetUp.users.length}} подписчик</span>
+                <span class="record__count">{{sMeetUp.users.length}} подписчиков</span>
                 <div class="record__info">
                     <span class="record__date">{{sMeetUp.time}}</span>
                     <span class="record__place">{{sMeetUp.location}}</span>
@@ -38,6 +38,9 @@
                     <div class="record__author">{{sMeetUp.owner.fio}}</div>
                 </div>
                 <div class="record__btns">
+                    <svg class="record__edit" width="35" height="39" viewBox="0 0 30 31" fill="none" xmlns="http://www.w3.org/2000/svg" (click)="openModal()">
+                        <path fill-rule="evenodd" clip-rule="evenodd" d="M20.1108 0.916672C20.4978 0.916598 20.8689 1.07034 21.1425 1.34403L26.469 6.67286C27.0382 7.24232 27.0382 8.16533 26.469 8.7348L11.3878 23.8226C11.1142 24.0963 10.7432 24.25 10.3563 24.25H5.02087C4.21546 24.25 3.56254 23.5971 3.56254 22.7917V17.4833C3.56254 17.0968 3.71595 16.7261 3.98906 16.4527L19.0792 1.34443C19.3527 1.07062 19.7238 0.916745 20.1108 0.916672ZM20.1114 4.43824L6.47921 18.0868V21.3333H9.75208L23.3756 7.70383L20.1114 4.43824ZM0.645874 28.625C0.645874 27.8196 1.29879 27.1667 2.10421 27.1667H28.3542C29.1596 27.1667 29.8125 27.8196 29.8125 28.625C29.8125 29.4304 29.1596 30.0833 28.3542 30.0833H2.10421C1.29879 30.0833 0.645874 29.4304 0.645874 28.625Z" fill="#B85526"/>
+                    </svg>
                     <button class="record__sub {{buttonStatus}}" (click)="sub()">{{buttonName}}</button>
                     <button class="record__all-info" (click)="state = !state" (click)="switchThenTemplate()">
                         <svg class="record__arrow" width="29px" height="23px" viewBox="0 -4.5 20 20" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" fill="#000000"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <title>arrow_down [#338]</title> <desc>Created with Sketch.</desc> <defs> </defs> <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"> <g id="Dribbble-Light-Preview" transform="translate(-220.000000, -6684.000000)" fill="#000000"> <g id="icons" transform="translate(56.000000, 160.000000)"> <path d="M164.292308,6524.36583 L164.292308,6524.36583 C163.902564,6524.77071 163.902564,6525.42619 164.292308,6525.83004 L172.555873,6534.39267 C173.33636,6535.20244 174.602528,6535.20244 175.383014,6534.39267 L183.70754,6525.76791 C184.093286,6525.36716 184.098283,6524.71997 183.717533,6524.31405 C183.328789,6523.89985 182.68821,6523.89467 182.29347,6524.30266 L174.676479,6532.19636 C174.285736,6532.60124 173.653152,6532.60124 173.262409,6532.19636 L165.705379,6524.36583 C165.315635,6523.96094 164.683051,6523.96094 164.292308,6524.36583" id="arrow_down-[#338]"> </path> </g> </g> </g> </g></svg>
@@ -54,7 +57,7 @@
         <div class="record__container_open">
             <div class="record__heading">
                 <h2 class="record__title">{{sMeetUp.name}}</h2>
-                <span class="record__count">{{sMeetUp.users.length}} подписчик</span>
+                <span class="record__count">{{sMeetUp.users.length}} подписчиков</span>
                 <div class="record__info">
                     <span class="record__date">{{sMeetUp.time}}</span>
                     <span class="record__place">{{sMeetUp.location}}</span>
@@ -74,7 +77,7 @@
                 <div class="record__people-info">{{sMeetUp.will_happen}}</div>
             </div>
             <div class="record__people">
-                <h3 class="record__people-title">Почему надо обязательно прийти?я</h3>
+                <h3 class="record__people-title">Почему надо обязательно прийти?</h3>
                 <span class="record__people-info">{{sMeetUp.reason_to_come}}</span>
             </div>
             <div class="record__controls">
@@ -101,6 +104,9 @@
                     <div class="record__author">{{sMeetUp.owner.fio}}</div>
                 </div>
                 <div class="record__btns">
+                    <svg class="record__edit" width="35" height="39" viewBox="0 0 30 31" fill="none" xmlns="http://www.w3.org/2000/svg" (click)="openModal()">
+                        <path fill-rule="evenodd" clip-rule="evenodd" d="M20.1108 0.916672C20.4978 0.916598 20.8689 1.07034 21.1425 1.34403L26.469 6.67286C27.0382 7.24232 27.0382 8.16533 26.469 8.7348L11.3878 23.8226C11.1142 24.0963 10.7432 24.25 10.3563 24.25H5.02087C4.21546 24.25 3.56254 23.5971 3.56254 22.7917V17.4833C3.56254 17.0968 3.71595 16.7261 3.98906 16.4527L19.0792 1.34443C19.3527 1.07062 19.7238 0.916745 20.1108 0.916672ZM20.1114 4.43824L6.47921 18.0868V21.3333H9.75208L23.3756 7.70383L20.1114 4.43824ZM0.645874 28.625C0.645874 27.8196 1.29879 27.1667 2.10421 27.1667H28.3542C29.1596 27.1667 29.8125 27.8196 29.8125 28.625C29.8125 29.4304 29.1596 30.0833 28.3542 30.0833H2.10421C1.29879 30.0833 0.645874 29.4304 0.645874 28.625Z" fill="#B85526"/>
+                    </svg>
                     <button class="record__sub {{buttonStatus}}" (click)="sub()">{{buttonName}}</button>
                     <button class="record__all-info" (click)="state = !state" (click)="switchThenTemplate()">
                         <svg width="29px" height="23px" viewBox="0 -4.5 20 20" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" fill="#000000"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <title>arrow_up [#337]</title> <desc>Created with Sketch.</desc> <defs> </defs> <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"> <g id="Dribbble-Light-Preview" transform="translate(-260.000000, -6684.000000)" fill="#000000"> <g id="icons" transform="translate(56.000000, 160.000000)"> <path d="M223.707692,6534.63378 L223.707692,6534.63378 C224.097436,6534.22888 224.097436,6533.57338 223.707692,6533.16951 L215.444127,6524.60657 C214.66364,6523.79781 213.397472,6523.79781 212.616986,6524.60657 L204.29246,6533.23165 C203.906714,6533.6324 203.901717,6534.27962 204.282467,6534.68555 C204.671211,6535.10081 205.31179,6535.10495 205.70653,6534.69695 L213.323521,6526.80297 C213.714264,6526.39807 214.346848,6526.39807 214.737591,6526.80297 L222.294621,6534.63378 C222.684365,6535.03868 223.317949,6535.03868 223.707692,6534.63378" id="arrow_up-[#337]"> </path> </g> </g> </g> </g></svg>

@@ -6,10 +6,7 @@
         <input type="password" class="user__password" [(ngModel)]="sUser.password">
     </div>
     <div class="user__section">
-        <select name="roles" class="user__select" [(ngModel)]="sUser.roles[0].name">
-            <option value="admin" class="user__option">ADMIN</option>
-            <option value="user" class="user__option">USER</option>
-        </select>
+        <div class="user__email user__name">{{sUser.roles[0].name}}</div>
     </div>
     <div class="user__section user__controls">
         <svg class="user__delete" width="35" height="35" viewBox="0 0 27 27" fill="none" xmlns="http://www.w3.org/2000/svg" (click)="deleteUser()">

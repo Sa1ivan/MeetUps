@@ -22,22 +22,8 @@
             <a class="navbar__page active" routerLink="users">Пользователи</a>
         </div>
         <div class="navbar__btns">
-            <div class="navbar__btn navbar__btn-setting"><svg width="48" height="48" viewBox="0 0 60 65" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <g filter="url(#filter0_d_4236_175)">
-                <path d="M47.628 34.94C47.7206 34.19 47.7823 33.41 47.7823 32.6C47.7823 31.79 47.7206 31.01 47.5972 30.26L52.8121 26.3C53.275 25.94 53.3984 25.28 53.1207 24.77L48.1834 16.46C47.8749 15.92 47.2269 15.74 46.6714 15.92L40.5307 18.32C39.2347 17.36 37.8769 16.58 36.3649 15.98L35.4392 9.61998C35.3466 9.01998 34.822 8.59998 34.2048 8.59998H24.3303C23.7132 8.59998 23.2194 9.01998 23.1269 9.61998L22.2011 15.98C20.6891 16.58 19.3005 17.39 18.0353 18.32L11.8946 15.92C11.3392 15.71 10.6911 15.92 10.3826 16.46L5.44531 24.77C5.13673 25.31 5.26016 25.94 5.75388 26.3L10.9689 30.26C10.8454 31.01 10.7529 31.82 10.7529 32.6C10.7529 33.38 10.8146 34.19 10.938 34.94L5.72303 38.9C5.26016 39.26 5.13673 39.92 5.41445 40.43L10.3517 48.74C10.6603 49.28 11.3083 49.46 11.8637 49.28L18.0045 46.88C19.3005 47.84 20.6582 48.62 22.1703 49.22L23.096 55.58C23.2194 56.18 23.7132 56.6 24.3303 56.6H34.2048C34.822 56.6 35.3466 56.18 35.4083 55.58L36.334 49.22C37.8461 48.62 39.2347 47.81 40.4998 46.88L46.6406 49.28C47.196 49.49 47.844 49.28 48.1526 48.74L53.0899 40.43C53.3984 39.89 53.275 39.26 52.7813 38.9L47.628 34.94ZM29.2676 41.6C24.176 41.6 20.0102 37.55 20.0102 32.6C20.0102 27.65 24.176 23.6 29.2676 23.6C34.3591 23.6 38.5249 27.65 38.5249 32.6C38.5249 37.55 34.3591 41.6 29.2676 41.6Z" fill="#B85526"/>
-                </g>
-                <defs>
-                <filter id="filter0_d_4236_175" x="-4" y="0" width="68" height="68" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
-                <feFlood flood-opacity="0" result="BackgroundImageFix"/>
-                <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/>
-                <feOffset dy="4"/>
-                <feGaussianBlur stdDeviation="2"/>
-                <feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.1 0"/>
-                <feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow_4236_175"/>
-                <feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow_4236_175" result="shape"/>
-                </filter>
-                </defs>
-                </svg>
+            <div class="navbar__btn navbar__btn-setting">
+                <img (click)="createNew()" class="navbar__btn" width="40" height="" src="https://img.icons8.com/officexs/40/add-file.png" alt="add-file"/>
                 </div>
             <div (click)="logOut()" class="navbar__btn navbar__btn-logout"><svg width="48" height="48" viewBox="0 0 60 66" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <g clip-path="url(#clip0_4236_177)" filter="url(#filter0_d_4236_177)">

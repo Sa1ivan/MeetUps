@@ -3,6 +3,8 @@ import { Component, ViewChild, TemplateRef, OnInit, Input, inject, Output, Event
 import { MeetUp } from 'src/app/interfaces/meetup';
 import { ListComponent } from '../list/list.component';
 import { AuthService } from 'src/app/services/auth.service';
+import { MatDialog } from '@angular/material/dialog';
+import { EditModalComponent } from '../edit-modal/edit-modal.component';
 
 @Component({
   selector: 'app-record',
@@ -16,10 +18,11 @@ export class RecordComponent implements OnInit{
   public authSerivce: AuthService = inject(AuthService);
 
 
-  constructor(){
+  constructor(private modal: MatDialog){
     this.state = true;
   }
   @Output() subscribe = new EventEmitter<MeetUp>();
+  @Output() editRecord = new EventEmitter<MeetUp>();
 
   @Input() sMeetUp!: MeetUp;
 
@@ -76,5 +79,22 @@ export class RecordComponent implements OnInit{
       this.buttonName = "Я пойду!";
       this.buttonStatus = "record__sub-green"
     }
+  }
+
+  openModal()
+  {
+    this.modal.open(EditModalComponent, {
+      data: {
+        name: this.sMeetUp.name,
+        time: this.sMeetUp.time,
+        place: this.sMeetUp.location,
+        description: this.sMeetUp.description,
+        audit: this.sMeetUp.target_audience,
+        need: this.sMeetUp.need_to_know,
+        will: this.sMeetUp.will_happen,
+        why: this.sMeetUp.reason_to_come,
+        id: this.sMeetUp.id
+      }
+    });
   }
 }

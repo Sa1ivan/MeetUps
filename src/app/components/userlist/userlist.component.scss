@@ -1,0 +1,9 @@
+.userlist{
+    margin-top: 50px;
+    overflow: scroll;
+    max-height: 85vh;
+    position: relative;
+}
+.userlist::-webkit-scrollbar {
+    width: 0;
+  }

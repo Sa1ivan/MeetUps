@@ -1,0 +1,45 @@
+<section class="edit-modal" [formGroup]="createForm">
+    <div class="edit-modal__container">
+        <h2 class="edit-modal__title">Создание митапа</h2>
+        <div class="edit-modal__main">
+            <div class="edit-modal__block">
+                <label for="name" class="edit-modal__label">Название:</label>
+                <input id="name" type="text" class="edit-modal__input name" formControlName="name">
+            </div>
+            <div class="edit-modal__block">
+                <div>
+                    <label for="date" class="edit-modal__label">Дата:</label>
+                    <input id="date" type="text" class="edit-modal__input date" formControlName="time">
+                </div>
+            </div>
+            <div class="edit-modal__block">
+                <label for="place" class="edit-modal__label">Место:</label>
+                <input id="place" type="text" class="edit-modal__input place" formControlName="place">
+            </div>
+            <div class="edit-modal__block why__block">
+                <label for="big-desc" class="edit-modal__label">Подробное<br>описание:<br></label>
+                <input id="big-desc" type="text" class="edit-modal__input big" formControlName="description">
+            </div>
+            <div class="edit-modal__block why__block">
+                <label for="audit" class="edit-modal__label">Целевая<br>аудитория:<br></label>
+                <input id="audit" type="text" class="edit-modal__input audit" formControlName="audit">
+            </div>
+            <div class="edit-modal__block why__block">
+                <label for="need" class="edit-modal__label">Что надо<br>знать?:<br></label>
+                <input id="need" type="text" class="edit-modal__input need" formControlName="need">
+            </div>
+            <div class="edit-modal__block">
+                <label for="will" class="edit-modal__label">Что будет?:</label>
+                <input id="will" type="text" class="edit-modal__input will" formControlName="will">
+            </div>
+            <div class="edit-modal__block why__block">
+                <label for="why" class="edit-modal__label">Почему надо<br>обязательно<br>прийти?:<br></label>
+                <input id="why" type="text" class="edit-modal__input why" formControlName="why">
+            </div>
+        </div>
+        <div class="edit-modal__controls">
+            <button class="edit-modal__btn save" (click)="create()">Создать</button>
+            <button class="edit-modal__btn cancel" (click)="cancel()">Отмена</button>
+        </div>
+    </div>
+</section>

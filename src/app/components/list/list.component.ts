@@ -75,6 +75,11 @@ export class ListComponent implements OnInit, OnDestroy{
     this.meetUpService.unsubscribeToMeetUp(meetUp);
   }
 
+  _editRecord(meetUp: MeetUp)
+  {
+
+  }
+
   ngOnDestroy(): void {
     while(this.subscription) this.subscription?.unsubscribe();
   }

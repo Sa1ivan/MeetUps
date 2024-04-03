@@ -109,6 +109,67 @@ export class MeetupService implements OnDestroy{
     ).subscribe();
   }
 
+  updateMeetUp(meetUp: {id: number, name: string, time: string, description: string, place: string, audit: string, need: string, will: string, why: string})
+  {
+    console.log(meetUp);
+    const id = meetUp.id;
+    return this.http.put(`${this.baseUrl}/meetup/${id}`,
+    {
+      name: meetUp.name, description: meetUp.description, time: meetUp.time, duration: 90, location: meetUp.place,
+      target_audience: meetUp.audit, need_to_know: meetUp.need, will_happen: meetUp.will, reason_to_come: meetUp.why
+    },
+    this.httpOptions)
+    .pipe(
+      tap((res) => {
+        if(window.location.href.indexOf("all") > 0){
+          this.getAllMeetups().subscribe(item=>{
+            this.createNew(item);
+          })
+        }
+        else{
+          this.getMeetups().subscribe(item=>{
+            this.createNew(item);
+          })
+        }
+      }),
+      takeUntil(this.destroy$),
+      catchError((): Observable<null> => {
+        return of(null);
+      })
+    );
+  }
+
+  createNewMeetUp(meetUp: { name: string, time: string, description: string, place: string, audit: string, need: string, will: string, why: string})
+  {
+    console.log(meetUp);
+    return this.http.post(`${this.baseUrl}/meetup`,
+    {
+      name: meetUp.name, description: meetUp.description, time: meetUp.time, duration: 90, location: meetUp.place,
+      target_audience: meetUp.audit, need_to_know: meetUp.need, will_happen: meetUp.will, reason_to_come: meetUp.why
+    },
+    this.httpOptions)
+    .pipe(
+      tap((res) => {
+        console.log(res);
+
+        if(window.location.href.indexOf("all") > 0){
+          this.getAllMeetups().subscribe(item=>{
+            this.createNew(item);
+          })
+        }
+        else{
+          this.getMeetups().subscribe(item=>{
+            this.createNew(item);
+          })
+        }
+      }),
+      takeUntil(this.destroy$),
+      catchError((): Observable<null> => {
+        return of(null);
+      })
+    );
+  }
+
   ngOnDestroy(): void {
     while(this.subscription) this.subscription?.unsubscribe();
   }

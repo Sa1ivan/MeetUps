@@ -1,3 +1,5 @@
+;
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 import { NgModule} from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
@@ -15,6 +17,9 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthService } from './services/auth.service';
 import { JwtInterceptor } from './interseptors/JwtInterceptor';
 import { UserlistComponent } from './components/userlist/userlist.component';
+import { MatDialogModule } from '@angular/material/dialog';
+import { EditModalComponent } from './components/edit-modal/edit-modal.component';
+import { CreateModalComponent } from './components/create-modal/create-modal.component'
 
 @NgModule({
   declarations: [
@@ -27,6 +32,8 @@ import { UserlistComponent } from './components/userlist/userlist.component';
     LogupComponent,
     UsersComponent,
     UserlistComponent,
+    EditModalComponent,
+    CreateModalComponent,
   ],
   imports: [
     BrowserModule,
@@ -34,6 +41,8 @@ import { UserlistComponent } from './components/userlist/userlist.component';
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
+    BrowserAnimationsModule,
+    MatDialogModule,
   ],
   providers: [
     AuthService,

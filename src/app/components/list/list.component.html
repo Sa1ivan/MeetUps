@@ -1,4 +1,6 @@
 <app-search></app-search>
-<div class="list" *ngFor="let meetUp of meetUpList;">
-    <app-record [sMeetUp]="meetUp" (subscribe)="_subscribe(meetUp)"></app-record>
+<div class="list">
+    <div *ngFor="let meetUp of meetUpList;">
+        <app-record [sMeetUp]="meetUp" (subscribe)="_subscribe(meetUp)" (editRecord)="_editRecord(meetUp)"></app-record>
+    </div>
 </div>
