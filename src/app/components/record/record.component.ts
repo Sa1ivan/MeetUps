@@ -1,4 +1,4 @@
-import { Component, ViewChild, TemplateRef, OnInit, Input, inject, Output, EventEmitter } from '@angular/core';
+import { Component, ViewChild, TemplateRef, OnInit, Input, inject, Output, EventEmitter, AfterContentChecked } from '@angular/core';
 import { MeetUp } from 'src/app/interfaces/meetup';
 import { AuthService } from 'src/app/services/auth.service';
 import { MatDialog } from '@angular/material/dialog';
@@ -11,9 +11,10 @@ import { EditModalComponent } from '../edit-modal/edit-modal.component';
 })
 export class RecordComponent implements OnInit{
   state!:boolean;
-  buttonName!: string;
-  buttonStatus!: string;
+  buttonState!: boolean;
   public authSerivce: AuthService = inject(AuthService);
+  user = this.authSerivce.user?.id;
+  isCorrect!: number;
 
 
   constructor(private modal: MatDialog){
@@ -40,43 +41,25 @@ export class RecordComponent implements OnInit{
   }
 
   ngOnInit(): void {
-    const user = this.authSerivce.user?.id;
-    for(let key in this.sMeetUp){
-      if(this.sMeetUp.users.length < 2)
+    for(let id in this.sMeetUp.users)
+    {
+      if(this.isCorrect != 1)
       {
-        this.buttonName = "Я пойду!";
-        this.buttonStatus = "record__sub-green"
-      }
-      for(let id in this.sMeetUp.users)
-      {
-        if(this.sMeetUp.users[id].id == user)
+        if(this.sMeetUp.users[id].id == this.user)
         {
-          this.buttonName = "Не смогу пойти";
-          this.buttonStatus = "record__sub-grey";
+          this.buttonState = true;
+          this.isCorrect = 1;
         }
-        else if(this.sMeetUp.users[id].id < 2){
-          this.buttonName = "Я пойду!";
-          this.buttonStatus = "record__sub-green"
-        }
-        else{
-          this.buttonName = "Я пойду!";
-          this.buttonStatus = "record__sub-green"
+        else
+        {
+          this.buttonState = false;
         }
       }
     }
-    this.thenTemplate = this.isClosed;
   }
 
   sub(){
     this.subscribe.emit(this.sMeetUp);
-    if(this.buttonName == "Я пойду!"){
-      this.buttonName = "Не смогу пойти";
-      this.buttonStatus = "record__sub-grey";
-    }
-    else{
-      this.buttonName = "Я пойду!";
-      this.buttonStatus = "record__sub-green"
-    }
   }
 
   openModal()
