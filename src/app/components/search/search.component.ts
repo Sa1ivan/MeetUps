@@ -1,7 +1,5 @@
-import { Component, EventEmitter, Output, inject } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { filter, tap } from 'rxjs';
-import { MeetupService } from 'src/app/services/meetup.service';
+import { Component, EventEmitter, Output } from '@angular/core';
+import { FormControl, FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-search',
@@ -10,7 +8,6 @@ import { MeetupService } from 'src/app/services/meetup.service';
 })
 export class SearchComponent {
   searchForm: FormGroup;
-  private meetService: MeetupService = inject(MeetupService);
 
   constructor(){
     this.searchForm = new FormGroup({

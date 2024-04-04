@@ -1,6 +1,5 @@
-import { Component, EventEmitter, Output, Input, Inject, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { MeetUp } from 'src/app/interfaces/meetup';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MeetupService } from 'src/app/services/meetup.service';
 import { Subscription } from 'rxjs';

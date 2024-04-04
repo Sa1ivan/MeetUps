@@ -1,4 +1,4 @@
-import { AfterContentChecked, AfterContentInit, Component, EventEmitter, OnDestroy, OnInit, Output, inject } from '@angular/core';
+import { AfterContentChecked, Component, EventEmitter, OnDestroy, Output, inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
 import { MeetupService } from 'src/app/services/meetup.service';

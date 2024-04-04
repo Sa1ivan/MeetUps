@@ -1,7 +1,5 @@
-import { NgClass } from '@angular/common';
 import { Component, ViewChild, TemplateRef, OnInit, Input, inject, Output, EventEmitter } from '@angular/core';
 import { MeetUp } from 'src/app/interfaces/meetup';
-import { ListComponent } from '../list/list.component';
 import { AuthService } from 'src/app/services/auth.service';
 import { MatDialog } from '@angular/material/dialog';
 import { EditModalComponent } from '../edit-modal/edit-modal.component';

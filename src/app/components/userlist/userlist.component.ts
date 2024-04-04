@@ -1,5 +1,4 @@
 import { OnDestroy, OnInit, Component } from '@angular/core';
-import { inject } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { User } from 'src/app/interfaces/user';
 import { UserService } from 'src/app/services/user.service';

@@ -1,11 +1,6 @@
-import { Injectable, OnDestroy, OnInit, Component } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { environment } from 'src/environments/environment';
-import { BehaviorSubject, catchError, filter, map, Observable, of, Subject, tap } from 'rxjs';
-import { Router } from '@angular/router';
+import { OnDestroy, OnInit, Component } from '@angular/core';
 import { inject } from '@angular/core';
 import { Subscription } from 'rxjs';
-import { User } from 'src/app/interfaces/user';
 import { MeetUp } from 'src/app/interfaces/meetup';
 import { MeetupService } from 'src/app/services/meetup.service';
 import { AuthService } from 'src/app/services/auth.service';
@@ -18,7 +13,6 @@ import { AuthService } from 'src/app/services/auth.service';
 export class ListComponent implements OnInit, OnDestroy{
   private subscription: Subscription | null = null;
   private authService: AuthService = inject(AuthService);
-  private router: Router = inject(Router);
   myView: boolean | null=null;
   meetUpList: Array<MeetUp> = [];
 
