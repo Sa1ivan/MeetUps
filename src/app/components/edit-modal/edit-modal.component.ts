@@ -23,6 +23,7 @@ export class EditModalComponent implements OnInit, OnDestroy{
     this.inutData = this.data;
     this.editMeetUp = new FormGroup({
       name: new FormControl(this.inutData.name),
+      date: new FormControl(this.inutData.date),
       time: new FormControl(this.inutData.time),
       place: new FormControl(this.inutData.place),
       description: new FormControl(this.inutData.description),

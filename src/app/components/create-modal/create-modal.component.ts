@@ -18,6 +18,7 @@ export class CreateModalComponent implements OnInit, OnDestroy{
   ngOnInit(): void {
     this.createForm = new FormGroup({
       name: new FormControl(null, [Validators.required]),
+      date: new FormControl(null, [Validators.required]),
       time: new FormControl(null, [Validators.required]),
       place: new FormControl(null, [Validators.required]),
       description: new FormControl(null, [Validators.required]),
@@ -34,6 +35,7 @@ export class CreateModalComponent implements OnInit, OnDestroy{
 
   create()
   {
+    this.createForm.value.time = this.createForm.value.date + "T" + this.createForm.value.time + ":00.000Z";
     this.meetUpService.createNewMeetUp(this.createForm.value).subscribe();
     this.cancel();
   }

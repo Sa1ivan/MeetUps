@@ -140,8 +140,6 @@ export class MeetupService implements OnDestroy{
 
   createNewMeetUp(meetUp: { name: string, time: string, description: string, place: string, audit: string, need: string, will: string, why: string})
   {
-    console.log(meetUp);
-    
     return this.http.post(`${this.baseUrl}/meetup`,
     {
       name: meetUp.name, description: meetUp.description, time: meetUp.time, duration: 90, location: meetUp.place,
@@ -150,7 +148,6 @@ export class MeetupService implements OnDestroy{
     .pipe(
       tap(() => {
         this.getAllMeetups().subscribe(item=>{
-          console.log(item);
           this.createNew(item);
         })
       }),
