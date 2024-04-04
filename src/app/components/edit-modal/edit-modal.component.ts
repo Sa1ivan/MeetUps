@@ -37,7 +37,8 @@ export class EditModalComponent implements OnInit, OnDestroy{
 
   deleteRecord()
   {
-
+    this.meetUpService.deleteMeetUp(this.editMeetUp.value.id);
+    this.modal.closeAll();
   }
 
   save()
@@ -52,6 +53,6 @@ export class EditModalComponent implements OnInit, OnDestroy{
   }
 
   ngOnDestroy(): void {
-  //  while(this.subscription) this.subscription?.unsubscribe();
+    while(this.subscription) this.subscription?.unsubscribe();
   }
 }

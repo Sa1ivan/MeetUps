@@ -1,7 +1,7 @@
-<section class="search">
-    <div class="search__container">
-        <input type="text" class="search__input" placeholder="Название, ключевое слово, дата">
-        <button type="button" class="search__button"><svg width="40" height="40" viewBox="0 0 41 41" fill="none" xmlns="http://www.w3.org/2000/svg">
+<section class="search" [formGroup]="searchForm">
+    <div class="search__container" >
+        <input type="text" class="search__input" placeholder="Название, ключевое слово, дата" formControlName="searchInput" but>
+        <button type="button" class="search__button"><svg width="40" height="40" viewBox="0 0 41 41" fill="none" xmlns="http://www.w3.org/2000/svg" (click)="searchMeetUps()">
             <path d="M28.8378 25.4072H27.031L26.3907 24.7897C28.6319 22.1825 29.9813 18.7977 29.9813 15.1156C29.9813 6.90523 23.326 0.25 15.1156 0.25C6.90523 0.25 0.25 6.90523 0.25 15.1156C0.25 23.326 6.90523 29.9813 15.1156 29.9813C18.7977 29.9813 22.1825 28.6319 24.7897 26.3907L25.4072 27.031V28.8378L36.8423 40.25L40.25 36.8423L28.8378 25.4072ZM15.1156 25.4072C9.42095 25.4072 4.82404 20.8103 4.82404 15.1156C4.82404 9.42095 9.42095 4.82404 15.1156 4.82404C20.8103 4.82404 25.4072 9.42095 25.4072 15.1156C25.4072 20.8103 20.8103 25.4072 15.1156 25.4072Z" fill="#B85526"/>
             </svg>
         </button>

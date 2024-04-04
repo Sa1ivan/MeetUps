@@ -111,7 +111,6 @@ export class MeetupService implements OnDestroy{
 
   updateMeetUp(meetUp: {id: number, name: string, time: string, description: string, place: string, audit: string, need: string, will: string, why: string})
   {
-    console.log(meetUp);
     const id = meetUp.id;
     return this.http.put(`${this.baseUrl}/meetup/${id}`,
     {
@@ -141,7 +140,6 @@ export class MeetupService implements OnDestroy{
 
   createNewMeetUp(meetUp: { name: string, time: string, description: string, place: string, audit: string, need: string, will: string, why: string})
   {
-    console.log(meetUp);
     return this.http.post(`${this.baseUrl}/meetup`,
     {
       name: meetUp.name, description: meetUp.description, time: meetUp.time, duration: 90, location: meetUp.place,
@@ -168,6 +166,29 @@ export class MeetupService implements OnDestroy{
         return of(null);
       })
     );
+  }
+
+  deleteMeetUp(meetUp: string)
+  {
+    return this.http.delete(`${this.baseUrl}/meetup/${meetUp}`)
+    .pipe(
+      tap((res) => {
+        if(window.location.href.indexOf("all") > 0){
+          this.getAllMeetups().subscribe(item=>{
+            this.createNew(item);
+          })
+        }
+        else{
+          this.getMeetups().subscribe(item=>{
+            this.createNew(item);
+          })
+        }
+      }),
+      takeUntil(this.destroy$),
+      catchError((): Observable<null> => {
+        return of(null);
+      })
+    ).subscribe();
   }
 
   ngOnDestroy(): void {

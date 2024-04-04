@@ -19,6 +19,7 @@ export class ListComponent implements OnInit, OnDestroy{
   private subscription: Subscription | null = null;
   private authService: AuthService = inject(AuthService);
   private router: Router = inject(Router);
+  myView: boolean | null=null;
   meetUpList: Array<MeetUp> = [];
 
   constructor(public meetUpService: MeetupService){
@@ -29,6 +30,7 @@ export class ListComponent implements OnInit, OnDestroy{
 
     if(window.location.href.indexOf("all") > 0)
     {
+      this.myView = false;
       this.meetUpService.getAllMeetups().subscribe(item => {
         this.meetUpService.createNew(item);
       });
@@ -39,6 +41,7 @@ export class ListComponent implements OnInit, OnDestroy{
     }
     else
     {
+      this.myView = true;
       this.meetUpService.getMeetups().subscribe(item => {
         this.meetUpService.createNew(item);
       });
@@ -75,9 +78,32 @@ export class ListComponent implements OnInit, OnDestroy{
     this.meetUpService.unsubscribeToMeetUp(meetUp);
   }
 
-  _editRecord(meetUp: MeetUp)
+  searchMeetUps(item: any)
   {
+    this.meetUpService.getAllMeetups().subscribe(item => {
+      this.meetUpService.createNew(item);
+    });
 
+    this.meetUpService.meetUpList$.subscribe((list => {
+      list = list.filter(record => {
+        console.log(item);
+
+        record.name == item;
+        /*||
+        record.time + "" == item ||
+        record.description == item ||
+        record.duration + "" == item ||
+        record.owner + "" == item ||
+        record.will_happen == item ||
+        record.target_audience == item ||
+        record.reason_to_come == item ||
+        record.need_to_know == item ||
+        record.location == item */
+      })
+      console.log(list);
+      
+      this.meetUpList = list;
+    }))
   }
 
   ngOnDestroy(): void {

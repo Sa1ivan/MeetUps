@@ -14,8 +14,8 @@ export class AuthComponent {
 
   constructor(public authService: AuthService){
     this.authForm = new FormGroup({
-        email: new FormControl(null, [Validators.required, Validators.email]),
-        password: new FormControl(null, [Validators.required])
+      email: new FormControl(null, [Validators.required, Validators.email]),
+      password: new FormControl(null, [Validators.required])
     })
   }
 
