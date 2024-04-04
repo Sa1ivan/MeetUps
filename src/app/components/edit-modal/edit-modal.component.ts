@@ -43,6 +43,7 @@ export class EditModalComponent implements OnInit, OnDestroy{
 
   save()
   {
+    this.editMeetUp.value.time = this.editMeetUp.value.date + "T" + this.editMeetUp.value.time + ":00.000Z";
     this.meetUpService.updateMeetUp(this.editMeetUp.value).subscribe();
     this.modal.closeAll();
   }

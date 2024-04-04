@@ -78,28 +78,28 @@ export class ListComponent implements OnInit, OnDestroy{
       this.meetUpService.createNew(res);
     });
 
-    if(item != "")
+    if(item != null)
     {
       return this.meetUpService.meetUpList$.subscribe((list => {
-        list = list.filter(record =>
-          record.name  == item ||
-          record.time == item ||
-          record.description == item ||
-          record.duration == item ||
-          record.owner.fio == item ||
-          record.will_happen == item ||
-          record.target_audience == item ||
-          record.reason_to_come == item ||
-          record.need_to_know == item ||
-          record.location == item
-        )
+        list.forEach(info => {
+          let str =  (info.name + " " + info.duration + " " + info.time + " " + info.description + " " + info.owner.fio + " " + info.will_happen + " "
+                      + info.target_audience + " " + info.reason_to_come + " " + info.location + " " + info.need_to_know + " ").toLowerCase();
+
+          if(!str.match((item).toLowerCase()))
+          {
+            list = list.filter(record => record.id != info.id);
+          }
+        })
+
         this.meetUpList = list;
       }))
     }
-
-    return  this.meetUpService.meetUpList$.subscribe((list => {
+    else
+    {
+      return this.meetUpService.meetUpList$.subscribe((list => {
         this.meetUpList = list;
       }))
+    }
   }
 
   ngOnDestroy(): void {
