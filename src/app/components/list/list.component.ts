@@ -80,30 +80,32 @@ export class ListComponent implements OnInit, OnDestroy{
 
   searchMeetUps(item: any)
   {
-    this.meetUpService.getAllMeetups().subscribe(item => {
-      this.meetUpService.createNew(item);
+    this.meetUpService.getAllMeetups().subscribe(res => {
+      this.meetUpService.createNew(res);
     });
 
-    this.meetUpService.meetUpList$.subscribe((list => {
-      list = list.filter(record => {
-        console.log(item);
+    if(item != "")
+    {
+      return this.meetUpService.meetUpList$.subscribe((list => {
+        list = list.filter(record =>
+          record.name  == item ||
+          record.time == item ||
+          record.description == item ||
+          record.duration == item ||
+          record.owner.fio == item ||
+          record.will_happen == item ||
+          record.target_audience == item ||
+          record.reason_to_come == item ||
+          record.need_to_know == item ||
+          record.location == item
+        )
+        this.meetUpList = list;
+      }))
+    }
 
-        record.name == item;
-        /*||
-        record.time + "" == item ||
-        record.description == item ||
-        record.duration + "" == item ||
-        record.owner + "" == item ||
-        record.will_happen == item ||
-        record.target_audience == item ||
-        record.reason_to_come == item ||
-        record.need_to_know == item ||
-        record.location == item */
-      })
-      console.log(list);
-      
-      this.meetUpList = list;
-    }))
+    return  this.meetUpService.meetUpList$.subscribe((list => {
+        this.meetUpList = list;
+      }))
   }
 
   ngOnDestroy(): void {

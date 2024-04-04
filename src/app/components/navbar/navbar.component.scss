@@ -37,6 +37,7 @@
     color: #E9E9E9;
     opacity: 1;
     transition: .5s opacity ease-in-out;
+    text-decoration: none;
 }
 
 .navbar__page:hover{
@@ -69,4 +70,12 @@
 
 .navbar__add{
     color: #B85526;
+}
+
+.pages{
+    justify-content: flex-start;
+}
+
+.page{
+    margin-left: 70px;
 }

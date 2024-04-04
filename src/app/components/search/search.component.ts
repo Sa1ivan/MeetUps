@@ -23,5 +23,6 @@ export class SearchComponent {
   searchMeetUps()
   {
     this.search.emit(this.searchForm.value.searchInput);
+    this.searchForm.reset();
   }
 }
