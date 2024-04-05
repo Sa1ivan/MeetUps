@@ -67,6 +67,7 @@ export class RecordComponent implements OnInit{
     this.modal.open(EditModalComponent, {
       data: {
         name: this.sMeetUp.name,
+        date: this.sMeetUp.time,
         time: this.sMeetUp.time,
         place: this.sMeetUp.location,
         description: this.sMeetUp.description,
@@ -74,7 +75,8 @@ export class RecordComponent implements OnInit{
         need: this.sMeetUp.need_to_know,
         will: this.sMeetUp.will_happen,
         why: this.sMeetUp.reason_to_come,
-        id: this.sMeetUp.id
+        id: this.sMeetUp.id,
+        owner: this.sMeetUp.owner.id
       }
     });
   }

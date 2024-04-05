@@ -1,5 +1,5 @@
 import { OnDestroy, OnInit, Component } from '@angular/core';
-import { Subscription } from 'rxjs';
+import { BehaviorSubject, Subscription, takeUntil } from 'rxjs';
 import { User } from 'src/app/interfaces/user';
 import { UserService } from 'src/app/services/user.service';
 
@@ -11,18 +11,17 @@ import { UserService } from 'src/app/services/user.service';
 
 export class UserlistComponent implements OnDestroy, OnInit{
   private subscription: Subscription | null = null;
-  userList!: User[];
   constructor(public userService: UserService){
-    this.userList = this.userService.userList;
   }
 
   ngOnInit(): void {
-    this.userService.getUsersInfo().subscribe(item => {
-      this.userService.RefreshItems(item);
+    this.userService.userList$ = new BehaviorSubject<User[]>([]);
+    this.userService.getUsersInfo().pipe(
+      takeUntil(this.userService.destroy$),
+    ).subscribe(item => {
+      this.userService.userList$.next(item);
+      setTimeout(()=> this.userService.userList$.next(item), 40000);
     })
-    this.userService.userList$.subscribe((list => {
-      this.userList = list;
-    }))
   }
 
   deleteUser(user: User)
@@ -36,6 +35,8 @@ export class UserlistComponent implements OnDestroy, OnInit{
   }
 
   ngOnDestroy(): void {
+    this.userService.destroy$.next();
+    this.userService.destroy$.complete();
     while(this.subscription) this.subscription?.unsubscribe();
   }
 }

@@ -1,16 +1,20 @@
 <div *ngIf="!myView; else myMeetUps;">
     <app-search (search)="searchMeetUps($event)"></app-search>
-    <div class="list">
-        <div *ngFor="let meetUp of meetUpList;">
-            <app-record [sMeetUp]="meetUp" (subscribe)="_subscribe(meetUp)"></app-record>
+    <div class="list" *ngIf="(meetUpService.meetUpList$ | async)?.length;  else spiner;">
+        <div *ngFor="let meetUp of (meetUpService.meetUpList$ | async)">
+            <app-record [sMeetUp]="meetUp" (subscribe)="subscribe(meetUp)"></app-record>
         </div>
     </div>
 </div>
 
 <ng-template #myMeetUps>
-    <div class="list mylist">
-        <div *ngFor="let meetUp of meetUpList;">
-            <app-record [sMeetUp]="meetUp" (subscribe)="_subscribe(meetUp)"></app-record>
+    <div class="list mylist" *ngIf="(meetUpService.meetUpList$ | async)?.length;  else spiner;">
+        <div *ngFor="let meetUp of (meetUpService.meetUpList$ | async);">
+            <app-record [sMeetUp]="meetUp" (subscribe)="subscribe(meetUp)"></app-record>
         </div>
     </div>
+</ng-template>
+
+<ng-template #spiner>
+    <span class="loader"></span>
 </ng-template>

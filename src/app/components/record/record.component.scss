@@ -60,7 +60,6 @@
     margin: 0 0 10px 18px;
     max-width: 1000px;
     font-family: sans-serif;
-    height: 50px;
     font-size: 18px;
     font-weight: 400;
     line-height: 24.51px;
@@ -243,4 +242,11 @@
     cursor: pointer;
     opacity: .8;
     transition: .5s opacity ease-in-out;
+}
+
+.desc{
+    display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
 }

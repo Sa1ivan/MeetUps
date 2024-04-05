@@ -8,9 +8,7 @@ import { UserService } from 'src/app/services/user.service';
   styleUrls: ['./users.component.scss']
 })
 export class UsersComponent {
-  userList!: User[];
   constructor(public userService: UserService){
-    this.userList = this.userService.userList;
   }
 
   @Input() sUser!: User;

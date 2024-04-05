@@ -3,6 +3,7 @@ import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
 import { FormControl, FormGroup } from '@angular/forms';
 import { MeetupService } from 'src/app/services/meetup.service';
 import { Subscription } from 'rxjs';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-edit-modal',
@@ -13,7 +14,7 @@ export class EditModalComponent implements OnInit, OnDestroy{
   editMeetUp!: FormGroup;
   private subscription: Subscription | null = null;
 
-  constructor(private modal: MatDialog, private meetUpService: MeetupService, @Inject(MAT_DIALOG_DATA) public data: any){
+  constructor(private modal: MatDialog, private meetUpService: MeetupService, @Inject(MAT_DIALOG_DATA) public data: any, private authService: AuthService){
 
   }
 
@@ -43,9 +44,15 @@ export class EditModalComponent implements OnInit, OnDestroy{
 
   save()
   {
-    this.editMeetUp.value.time = this.editMeetUp.value.date + "T" + this.editMeetUp.value.time + ":00.000Z";
-    this.meetUpService.updateMeetUp(this.editMeetUp.value).subscribe();
-    this.modal.closeAll();
+    const user = this.authService.user?.id;
+    if(this.data.owner.id = user)
+    {
+      this.meetUpService.updateMeetUp(this.editMeetUp.value).subscribe();
+      this.modal.closeAll();
+    }
+    else{
+      alert("У вас нет прав для редактирования этого митапа!");
+    }
   }
 
   undo()

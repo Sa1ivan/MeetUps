@@ -12,41 +12,23 @@ import { AuthService } from './auth.service';
 @Injectable({
   providedIn: 'root'
 })
+
 export class UserService implements OnDestroy{
   baseUrl: string = environment.apiUrl;
-  userList: Array<User> = [];
   userList$ = new BehaviorSubject<User[]>([]);
   private authService: AuthService = inject(AuthService);
   private router: Router = inject(Router);
   private subscription: Subscription | null = null;
-  private destroy$ = new Subject<void>();
+  public destroy$ = new Subject<void>();
   httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })
   };
 
   constructor(private http: HttpClient) { }
 
-  public RefreshItems(item: any)
-  {
-    this.userList = this.userList$.getValue();
-    this.userList$.next(item);
-  }
-
   public getUsersInfo()
   {
-    return this.http.get(`${this.baseUrl}/user`)
-    .pipe(
-      tap((res) => {
-        if (res) {
-        }
-        return null;
-      }),
-      takeUntil(this.destroy$),
-      catchError((e): Observable<null> => {
-        console.log(e.error.message);
-        return of(null);
-      })
-    );
+    return this.http.get<User[]>(`${this.baseUrl}/user`);
   }
 
   public editUser(userData: User)
@@ -58,7 +40,7 @@ export class UserService implements OnDestroy{
       tap((res) => {
         if (res) {
           this.getUsersInfo().subscribe(item => {
-            this.RefreshItems(item);
+            this.userList$.next(item);
           })
         }
         return null;
@@ -80,7 +62,7 @@ export class UserService implements OnDestroy{
       tap((res) => {
         if (res) {
           this.getUsersInfo().subscribe(item => {
-            this.RefreshItems(item);
+            this.userList$.next(item);
           })
         }
         return null;
@@ -94,6 +76,8 @@ export class UserService implements OnDestroy{
   }
 
   ngOnDestroy(): void {
+    this.destroy$.next();
+    this.destroy$.complete();
     while(this.subscription) this.subscription?.unsubscribe();
   }
 }
