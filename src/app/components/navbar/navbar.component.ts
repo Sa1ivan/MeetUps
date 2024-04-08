@@ -43,6 +43,6 @@ export class NavbarComponent implements AfterContentChecked, OnDestroy{
   }
 
   ngOnDestroy(): void {
-    while(this.subscription) this.subscription?.unsubscribe();
+    if(this.subscription) this.subscription?.unsubscribe();
   }
 }

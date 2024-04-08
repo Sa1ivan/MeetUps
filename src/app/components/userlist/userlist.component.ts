@@ -1,6 +1,7 @@
 import { OnDestroy, OnInit, Component } from '@angular/core';
-import { BehaviorSubject, Subscription, takeUntil } from 'rxjs';
+import { BehaviorSubject, Subscription, takeUntil, Subject } from 'rxjs';
 import { User } from 'src/app/interfaces/user';
+import { AuthService } from 'src/app/services/auth.service';
 import { UserService } from 'src/app/services/user.service';
 
 @Component({
@@ -11,13 +12,14 @@ import { UserService } from 'src/app/services/user.service';
 
 export class UserlistComponent implements OnDestroy, OnInit{
   private subscription: Subscription | null = null;
-  constructor(public userService: UserService){
+  private destroy$ = new Subject<void>();
+  constructor(public userService: UserService, private authService: AuthService){
   }
 
   ngOnInit(): void {
     this.userService.userList$ = new BehaviorSubject<User[]>([]);
     this.userService.getUsersInfo().pipe(
-      takeUntil(this.userService.destroy$),
+      takeUntil(this.destroy$),
     ).subscribe(item => {
       this.userService.userList$.next(item);
       setTimeout(()=> this.userService.userList$.next(item), 40000);
@@ -26,17 +28,28 @@ export class UserlistComponent implements OnDestroy, OnInit{
 
   deleteUser(user: User)
   {
+    const userId = this.authService.user?.id;
     this.userService.deleteUser(user);
+
+    if(userId == user.id)
+    {
+      this.authService.logout();
+    }
   }
 
   editUser(user: User)
   {
+    const userId = this.authService.user?.id;
     this.userService.editUser(user);
+
+    if(userId == user.id)
+    {
+      this.authService.logout();
+    }
   }
 
   ngOnDestroy(): void {
-    this.userService.destroy$.next();
-    this.userService.destroy$.complete();
-    while(this.subscription) this.subscription?.unsubscribe();
+    this.destroy$.next();
+    this.destroy$.complete();
   }
 }

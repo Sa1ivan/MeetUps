@@ -90,6 +90,5 @@ export class AuthService implements OnDestroy{
   ngOnDestroy(): void {
     this.destroy$.next();
     this.destroy$.complete();
-    while(this.subscription) this.subscription?.unsubscribe();
   }
 }

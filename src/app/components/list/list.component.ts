@@ -1,6 +1,6 @@
 import { OnDestroy, OnInit, Component, AfterContentChecked } from '@angular/core';
 import { inject } from '@angular/core';
-import { BehaviorSubject, Observable, Subject, Subscription, interval, of, takeUntil } from 'rxjs';
+import { BehaviorSubject, Observable, Subject, Subscription, filter, interval, of, takeUntil } from 'rxjs';
 import { MeetUp } from 'src/app/interfaces/meetup';
 import { MeetupService } from 'src/app/services/meetup.service';
 import { AuthService } from 'src/app/services/auth.service';
@@ -14,6 +14,7 @@ import { Router } from '@angular/router';
 export class ListComponent implements OnInit, OnDestroy{
   private subscription: Subscription | null = null;
   private authService: AuthService = inject(AuthService);
+  private destroy$ = new Subject<void>();
   private router: Router = inject(Router);
   myView: boolean | null=null;
   meetUpList: Array<MeetUp> = [];
@@ -23,13 +24,18 @@ export class ListComponent implements OnInit, OnDestroy{
   }
 
   ngOnInit(): void {
+    this.authService.user?.roles.forEach(role => {
+      console.log(role);
+
+    })
     this.meetUpService.meetUpList$ = new BehaviorSubject<MeetUp[]>([]);
     if(window.location.href.indexOf("all") > 0)
     {
       this.myView = false;
       this.meetUpService.getMeetups().pipe(
-        takeUntil(this.meetUpService.destroy$),
+        takeUntil(this.destroy$),
       ).subscribe(item => {
+        item = item.filter(record => record.owner !== null)
         setTimeout(()=> this.meetUpService.meetUpList$.next(item), 1500);
       })
     }
@@ -37,15 +43,10 @@ export class ListComponent implements OnInit, OnDestroy{
     {
       this.myView = true;
       this.meetUpService.getMeetups().pipe(
-        takeUntil(this.meetUpService.destroy$),
+        takeUntil(this.destroy$),
       ).subscribe(item => {
-        item = item.filter(record => record.owner.id == this.authService.user?.id)
+        item = item.filter(record => record.owner !== null && record.owner.id == this.authService.user?.id);
         setTimeout(()=> this.meetUpService.meetUpList$.next(item), 1500);
-        if(this.meetUpService.meetUpList$.getValue().length == 0)
-        {
-          alert("Записей нет!");
-          this.router.navigate(['nav/all']);
-        }
       })
     }
   }
@@ -53,12 +54,16 @@ export class ListComponent implements OnInit, OnDestroy{
   refreshMeetUp()
   {
     this.meetUpService.meetUpList$ = new BehaviorSubject<MeetUp[]>([]);
+
+
+
     if(window.location.href.indexOf("all") > 0)
     {
       this.myView = false;
       this.meetUpService.getMeetups().pipe(
-        takeUntil(this.meetUpService.destroy$),
+        takeUntil(this.destroy$),
       ).subscribe(item => {
+        item = item.filter(record => record.owner !== null)
         this.meetUpService.meetUpList$.next(item);
       })
     }
@@ -66,15 +71,15 @@ export class ListComponent implements OnInit, OnDestroy{
     {
       this.myView = true;
       this.meetUpService.getMeetups().pipe(
-        takeUntil(this.meetUpService.destroy$),
+        takeUntil(this.destroy$),
       ).subscribe(item => {
-        item = item.filter(record => record.owner.id == this.authService.user?.id)
+        item = item.filter(record => record.owner !== null && record.owner.id == this.authService.user?.id);
         this.meetUpService.meetUpList$.next(item);
       })
     }
   }
 
-  timer = setInterval(() => this.refreshMeetUp(), 360000);
+  timer = setInterval(() => this.refreshMeetUp(), 60000);
 
   subscribe(meetUp: MeetUp)
   {
@@ -94,11 +99,19 @@ export class ListComponent implements OnInit, OnDestroy{
     else
     {
       this.meetUpService.subscribeToMeetUp(meetUp).pipe(
-        takeUntil(this.meetUpService.destroy$),
+        takeUntil(this.destroy$),
       ).subscribe(()=>{
         this.meetUpService.getMeetups().pipe(
-          takeUntil(this.meetUpService.destroy$),
+          takeUntil(this.destroy$),
         ).subscribe(item => {
+          if(window.location.href.indexOf("all") > 0)
+          {
+            item = item.filter(record => record.owner !== null)
+          }
+          else
+          {
+            item = item.filter(record => record.owner !== null && record.owner.id == this.authService.user?.id);
+          }
           this.meetUpService.meetUpList$.next(item);
         })
       });
@@ -108,11 +121,19 @@ export class ListComponent implements OnInit, OnDestroy{
   unsubscribe(meetUp: MeetUp)
   {
     this.meetUpService.unsubscribeToMeetUp(meetUp).pipe(
-      takeUntil(this.meetUpService.destroy$),
+      takeUntil(this.destroy$),
     ).subscribe(()=>{
       this.meetUpService.getMeetups().pipe(
-        takeUntil(this.meetUpService.destroy$),
+        takeUntil(this.destroy$),
       ).subscribe(item => {
+        if(window.location.href.indexOf("all") > 0)
+        {
+          item = item.filter(record => record.owner !== null)
+        }
+        else
+        {
+          item = item.filter(record => record.owner !== null && record.owner.id == this.authService.user?.id);
+        }
         this.meetUpService.meetUpList$.next(item);
       })
     });
@@ -123,8 +144,9 @@ export class ListComponent implements OnInit, OnDestroy{
     if(item != null)
     {
         this.meetUpService.getMeetups().pipe(
-          takeUntil(this.meetUpService.destroy$),
+          takeUntil(this.destroy$),
         ).subscribe(list => {
+        list = list.filter(record => record.owner !== null);
         list.forEach(info => {
           let str =  (info.name +
                       info.duration +
@@ -152,8 +174,7 @@ export class ListComponent implements OnInit, OnDestroy{
 
   ngOnDestroy(): void {
     clearInterval(this.timer);
-    this.meetUpService.destroy$.next();
-    this.meetUpService.destroy$.complete();
-    while(this.subscription) this.subscription?.unsubscribe();
+    this.destroy$.next();
+    this.destroy$.complete();
   }
 }

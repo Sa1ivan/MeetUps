@@ -15,6 +15,7 @@ export class RecordComponent implements OnInit{
   public authSerivce: AuthService = inject(AuthService);
   user = this.authSerivce.user?.id;
   isCorrect!: number;
+  buttonEdit = true;
 
 
   constructor(private modal: MatDialog){
@@ -56,7 +57,12 @@ export class RecordComponent implements OnInit{
         }
       }
     }
+    if(this.sMeetUp.owner.id != this.user)
+    {
+      this.buttonEdit = false;
+    }
   }
+
 
   sub(){
     this.subscribe.emit(this.sMeetUp);

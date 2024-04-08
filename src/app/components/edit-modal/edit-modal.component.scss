@@ -67,11 +67,13 @@
 .name{
     width: 420px;
     height: 50px;
+    margin-left: 13px;
 }
 
 .date{
     width: 250px;
     height: 50px;
+    margin-left: -22px;
 }
 
 .time{
@@ -112,6 +114,7 @@
 .why{
     width: 640px;
     height: 60px;
+    margin-left: -12px;
 }
 
 .why__block{
@@ -178,4 +181,8 @@
     cursor: pointer;
     opacity: .8;
     transition: .5s opacity ease-in-out;
+}
+
+.label__place{
+    margin-left: 42px;
 }

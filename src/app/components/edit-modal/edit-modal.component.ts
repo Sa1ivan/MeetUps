@@ -44,15 +44,8 @@ export class EditModalComponent implements OnInit, OnDestroy{
 
   save()
   {
-    const user = this.authService.user?.id;
-    if(this.data.owner.id = user)
-    {
-      this.meetUpService.updateMeetUp(this.editMeetUp.value).subscribe();
-      this.modal.closeAll();
-    }
-    else{
-      alert("У вас нет прав для редактирования этого митапа!");
-    }
+    this.meetUpService.updateMeetUp(this.editMeetUp.value).subscribe();
+    this.modal.closeAll();
   }
 
   undo()
@@ -61,6 +54,6 @@ export class EditModalComponent implements OnInit, OnDestroy{
   }
 
   ngOnDestroy(): void {
-    while(this.subscription) this.subscription?.unsubscribe();
+    if(this.subscription) this.subscription?.unsubscribe();
   }
 }

@@ -19,7 +19,7 @@ export class UserService implements OnDestroy{
   private authService: AuthService = inject(AuthService);
   private router: Router = inject(Router);
   private subscription: Subscription | null = null;
-  public destroy$ = new Subject<void>();
+  private destroy$ = new Subject<void>();
   httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })
   };
@@ -78,6 +78,5 @@ export class UserService implements OnDestroy{
   ngOnDestroy(): void {
     this.destroy$.next();
     this.destroy$.complete();
-    while(this.subscription) this.subscription?.unsubscribe();
   }
 }

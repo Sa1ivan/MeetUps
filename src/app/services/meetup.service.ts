@@ -1,11 +1,10 @@
 import { Injectable, OnDestroy } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
-import { BehaviorSubject, catchError, filter, interval, map, Observable, of, Subject, takeUntil, tap, timeout } from 'rxjs';
+import { BehaviorSubject, catchError, Observable, of, Subject, takeUntil, tap } from 'rxjs';
 import { Router } from '@angular/router';
 import { inject } from '@angular/core';
 import { Subscription } from 'rxjs';
-import { User } from '../interfaces/user';
 import { MeetUp } from '../interfaces/meetup';
 import { AuthService } from './auth.service';
 
@@ -19,7 +18,7 @@ export class MeetupService implements OnDestroy{
   private authService: AuthService = inject(AuthService);
   private router: Router = inject(Router);
   private subscription: Subscription | null = null;
-  public destroy$ = new Subject<void>();
+  private destroy$ = new Subject<void>();
   httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })
   };
@@ -45,6 +44,7 @@ export class MeetupService implements OnDestroy{
   updateMeetUp(meetUp: {id: number, name: string, time: string, description: string, place: string, audit: string, need: string, will: string, why: string})
   {
     const id = meetUp.id;
+
     return this.http.put(`${this.baseUrl}/meetup/${id}`,
     {
       name: meetUp.name, description: meetUp.description, time: meetUp.time, duration: 90, location: meetUp.place,
@@ -54,6 +54,15 @@ export class MeetupService implements OnDestroy{
     .pipe(
       tap(() => {
           this.getMeetups().subscribe(item=>{
+            if(window.location.href.indexOf("all") > 0)
+            {
+              item = item.filter(record => record.owner !== null)
+            }
+            else
+            {
+              item = item.filter(record => record.owner !== null && record.owner.id == this.authService.user?.id);
+            }
+
             this.meetUpList$.next(item);
           })
       }),
@@ -73,7 +82,16 @@ export class MeetupService implements OnDestroy{
     }, this.httpOptions)
     .pipe(
       tap(() => {
-        this.getMeetups().subscribe(item=>{
+          this.getMeetups().subscribe(item=>{
+          if(window.location.href.indexOf("all") > 0)
+          {
+            item = item.filter(record => record.owner !== null)
+          }
+          else
+          {
+            item = item.filter(record => record.owner !== null && record.owner.id == this.authService.user?.id);
+          }
+
           this.meetUpList$.next(item);
         })
       }),
@@ -90,6 +108,14 @@ export class MeetupService implements OnDestroy{
     .pipe(
       tap((res) => {
         this.getMeetups().subscribe(item=>{
+          if(window.location.href.indexOf("all") > 0)
+          {
+            item = item.filter(record => record.owner !== null)
+          }
+          else
+          {
+            item = item.filter(record => record.owner !== null && record.owner.id == this.authService.user?.id);
+          }
           this.meetUpList$.next(item);
         })
       }),
@@ -103,6 +129,5 @@ export class MeetupService implements OnDestroy{
   ngOnDestroy(): void {
     this.destroy$.next();
     this.destroy$.complete();
-    while(this.subscription) this.subscription?.unsubscribe();
   }
 }
