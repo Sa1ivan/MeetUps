@@ -9,8 +9,8 @@ import { AuthService } from 'src/app/services/auth.service';
   styleUrls: ['./logup.component.scss']
 })
 export class LogupComponent {
-  logupForm: FormGroup;
-  router: Router = inject(Router);
+  public logupForm: FormGroup;
+  private router: Router = inject(Router);
 
   constructor(private authService: AuthService){
     this.logupForm = new FormGroup({
@@ -20,7 +20,7 @@ export class LogupComponent {
     })
   }
 
-  authSubmit()
+  public authSubmit()
   {
     if(this.logupForm.valid)
     {
@@ -29,7 +29,7 @@ export class LogupComponent {
     }
   }
 
-  logIn(){
+  public logIn(){
     this.router.navigate(['']);
   }
 }

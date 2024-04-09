@@ -11,9 +11,12 @@ import { Subscription } from 'rxjs';
 })
 export class CreateModalComponent implements OnInit, OnDestroy{
   private subscription: Subscription | null = null;
-  createForm!: FormGroup;
+  public createForm!: FormGroup;
 
-  constructor(private meetUpService: MeetupService, private modal: MatDialog){}
+  constructor(
+    private meetUpService: MeetupService,
+    private modal: MatDialog
+  ){}
 
   ngOnInit(): void {
     this.createForm = new FormGroup({
@@ -29,18 +32,18 @@ export class CreateModalComponent implements OnInit, OnDestroy{
     });
   }
 
-  cancel(){
+  ngOnDestroy(): void {
+    if(this.subscription) this.subscription?.unsubscribe();
+  }
+
+  public cancel(){
     this.modal.closeAll();
   }
 
-  create()
+  public create()
   {
     this.createForm.value.time = this.createForm.value.date + "T" + this.createForm.value.time + ":00.000Z";
     this.meetUpService.createNewMeetUp(this.createForm.value).subscribe();
     this.cancel();
-  }
-
-  ngOnDestroy(): void {
-    if(this.subscription) this.subscription?.unsubscribe();
   }
 }

@@ -3,25 +3,32 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { catchError, map, Observable, of, tap, Subscription, Subject, takeUntil } from 'rxjs';
 import { Router } from '@angular/router';
-import { User } from '../interfaces/user';
+import { User } from '../components/interfaces/user';
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable()
 
 export class AuthService implements OnDestroy{
-  baseUrl: string = environment.apiUrl;
+  private baseUrl: string = environment.apiUrl;
   private router: Router = inject(Router);
   private subscription: Subscription | null = null;
   private destroy$ = new Subject<void>();
-  httpOptions = {
+  private httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })
   };
 
-  constructor(private http: HttpClient, private routes: Router) {}
+  constructor(
+    private http: HttpClient,
+    private routes: Router
+  ) {}
+
+  ngOnDestroy(): void {
+    this.destroy$.next();
+    this.destroy$.complete();
+  }
 
   public get user(): User | null {
     const token = localStorage.getItem('user_token');
+
     if (token) {
       const user: User = this.parseJwt(token);
       return user;
@@ -30,22 +37,23 @@ export class AuthService implements OnDestroy{
   }
 
   public logIn(formData: {email: string, password: string}) {
-    return this.http.post<{ token: string }>(`${this.baseUrl}/auth/login`, {email: formData.email, password: formData.password}, this.httpOptions)
-    .pipe(
-      map((res) => {
-        if (res.token) {
-          localStorage.setItem('user_token', res.token);
-          this.router.navigate(['nav/all']);
-        }
-        return null;
-      }),
-      takeUntil(this.destroy$),
-      catchError((e): Observable<null> => {
-        localStorage.removeItem('user_token');
-        alert(e.error.message);
-        return of(null);
-      })
-    ).subscribe();
+    return this.http
+      .post<{ token: string }>(`${this.baseUrl}/auth/login`, {email: formData.email, password: formData.password}, this.httpOptions)
+        .pipe(
+          map((res) => {
+            if (res.token) {
+              localStorage.setItem('user_token', res.token);
+              this.router.navigate(['nav/all']);
+            }
+            return null;
+          }),
+          takeUntil(this.destroy$),
+          catchError((e): Observable<null> => {
+            localStorage.removeItem('user_token');
+            alert(e.error.message);
+            return of(null);
+          })
+        ).subscribe();
   }
 
   public get token(): string | null {
@@ -68,27 +76,23 @@ export class AuthService implements OnDestroy{
     return JSON.parse(jsonPayload);
   }
 
-  logout() {
+  public logout() {
     localStorage.removeItem('user_token');
     this.router.navigate(['nav/auth']);
   }
 
   public signup(formData: {email: string, password: string, fullname: string})
   {
-    return this.http.post(`${this.baseUrl}/auth/registration`, {email: formData.email, password: formData.password, fio: formData.fullname}, this.httpOptions)
-    .pipe(
-      tap((res) => {
-        console.log(res);
-        this.router.navigate(['nav/auth']);
-      }),
-      takeUntil(this.destroy$),
-      catchError((): Observable<null> => {
-        return of(null);
-      })
-    ).subscribe();
-  }
-  ngOnDestroy(): void {
-    this.destroy$.next();
-    this.destroy$.complete();
+    return this.http
+      .post(`${this.baseUrl}/auth/registration`, {email: formData.email, password: formData.password, fio: formData.fullname}, this.httpOptions)
+        .pipe(
+          tap(() => {
+            this.router.navigate(['nav/auth']);
+          }),
+          takeUntil(this.destroy$),
+          catchError((): Observable<null> => {
+            return of(null);
+          })
+        ).subscribe();
   }
 }

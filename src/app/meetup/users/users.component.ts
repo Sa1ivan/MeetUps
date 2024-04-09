@@ -1,6 +1,5 @@
 import { Component, Input, EventEmitter, Output, OnInit } from '@angular/core';
-import { User } from 'src/app/interfaces/user';
-import { UserService } from 'src/app/services/user.service';
+import { User } from 'src/app/components/interfaces/user';
 
 @Component({
   selector: 'app-users',
@@ -8,10 +7,9 @@ import { UserService } from 'src/app/services/user.service';
   styleUrls: ['./users.component.scss']
 })
 export class UsersComponent implements OnInit{
-  userRole = "";
-  constructor(public userService: UserService){
+  public userRole = "";
 
-  }
+  constructor(){}
 
   @Input() sUser!: User;
   @Output() delete = new EventEmitter<User>();
@@ -23,12 +21,12 @@ export class UsersComponent implements OnInit{
     })
   }
 
-  deleteUser()
+  public deleteUser()
   {
     this.delete.emit(this.sUser);
   }
 
-  editUser()
+  public editUser()
   {
     this.edit.emit(this.sUser);
   }

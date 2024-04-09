@@ -6,11 +6,11 @@ import { AuthService } from 'src/app/services/auth.service';
 @Component({
   selector: 'app-auth',
   templateUrl: './auth.component.html',
-  styleUrls: ['./auth.component.scss']
+  styleUrls: ['./auth.component.scss'],
 })
 export class AuthComponent {
-  authForm: FormGroup;
-  router: Router = inject(Router);
+  public authForm: FormGroup;
+  private router: Router = inject(Router);
 
   constructor(public authService: AuthService){
     this.authForm = new FormGroup({
@@ -19,7 +19,7 @@ export class AuthComponent {
     })
   }
 
-  authSubmit()
+  public authSubmit()
   {
     if(this.authForm.valid)
     {
@@ -28,7 +28,7 @@ export class AuthComponent {
     }
   }
 
-  logUp(){
+  public logUp(){
     this.router.navigate(['nav/logup']);
   }
 }

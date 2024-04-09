@@ -1,5 +1,5 @@
 <div class="userlist" *ngIf="(userService.userList$ | async)?.length; else spiner;">
-    <div *ngFor="let user of (userService.userList$ | async)">
+    <div *ngFor="let user of (userService.userList$ | async); trackBy: refresh">
         <app-users [sUser]="user" (delete)="deleteUser(user)" (edit)="editUser(user)"></app-users>
     </div>
 </div>

@@ -7,7 +7,7 @@ import { FormControl, FormGroup } from '@angular/forms';
   styleUrls: ['./search.component.scss']
 })
 export class SearchComponent {
-  searchForm: FormGroup;
+  public searchForm: FormGroup;
 
   constructor(){
     this.searchForm = new FormGroup({
@@ -17,7 +17,7 @@ export class SearchComponent {
 
   @Output() search = new EventEmitter<any>();
 
-  searchMeetUps()
+  public searchMeetUps()
   {
     this.search.emit(this.searchForm.value.searchInput);
     this.searchForm.reset();

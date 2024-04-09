@@ -1,5 +1,5 @@
-import { Component, ViewChild, TemplateRef, OnInit, Input, inject, Output, EventEmitter, AfterContentChecked } from '@angular/core';
-import { MeetUp } from 'src/app/interfaces/meetup';
+import { Component, ViewChild, TemplateRef, OnInit, Input, inject, Output, EventEmitter } from '@angular/core';
+import { MeetUp } from '../../components/interfaces/meetup';
 import { AuthService } from 'src/app/services/auth.service';
 import { MatDialog } from '@angular/material/dialog';
 import { EditModalComponent } from '../edit-modal/edit-modal.component';
@@ -10,35 +10,30 @@ import { EditModalComponent } from '../edit-modal/edit-modal.component';
   styleUrls: ['./record.component.scss']
 })
 export class RecordComponent implements OnInit{
-  state!:boolean;
-  buttonState!: boolean;
+  public state!:boolean;
+  public buttonState!: boolean;
   public authSerivce: AuthService = inject(AuthService);
-  user = this.authSerivce.user?.id;
-  isCorrect!: number;
-  buttonEdit = true;
+  private user = this.authSerivce.user?.id;
+  public isCorrect!: number;
+  public buttonEdit = true;
+  public thenTemplate: TemplateRef<any>|null=null;
 
+  @ViewChild('isOpen')
+  public isOpen:TemplateRef<any>|null=null;
 
-  constructor(private modal: MatDialog){
-    this.state = true;
-  }
+  @ViewChild('isClosed')
+  public isClosed:TemplateRef<any>|null=null;
+
   @Output() subscribe = new EventEmitter<MeetUp>();
   @Output() editRecord = new EventEmitter<MeetUp>();
 
   @Input() sMeetUp!: MeetUp;
+  public date = "";
+  public time = "";
 
-  thenTemplate: TemplateRef<any>|null=null;
-
-  @ViewChild('isOpen')
-  isOpen:TemplateRef<any>|null=null;
-
-  @ViewChild('isClosed')
-  isClosed:TemplateRef<any>|null=null;
-
-  switchThenTemplate() {
-    this.thenTemplate=
-     (this.thenTemplate===this.isClosed) ?
-     this.isOpen:
-     this.isClosed;
+  constructor(private modal: MatDialog)
+  {
+    this.state = true;
   }
 
   ngOnInit(): void {
@@ -46,7 +41,7 @@ export class RecordComponent implements OnInit{
     {
       if(this.isCorrect != 1)
       {
-        if(this.sMeetUp.users[id].id == this.user)
+        if(this.sMeetUp.users[id].id === this.user)
         {
           this.buttonState = true;
           this.isCorrect = 1;
@@ -57,18 +52,27 @@ export class RecordComponent implements OnInit{
         }
       }
     }
-    if(this.sMeetUp.owner.id != this.user)
+    if(this.sMeetUp.owner.id !== this.user)
     {
       this.buttonEdit = false;
     }
+    this.date = (this.sMeetUp.time + "").split('T')[0] + " / " + (this.sMeetUp.time + "").split('T')[1].split('.')[0];
   }
 
+  public switchThenTemplate()
+  {
+    this.thenTemplate=
+     (this.thenTemplate===this.isClosed) ?
+      this.isOpen:
+      this.isClosed;
+  }
 
-  sub(){
+  public sub()
+  {
     this.subscribe.emit(this.sMeetUp);
   }
 
-  openModal()
+  public openModal()
   {
     this.modal.open(EditModalComponent, {
       data: {
