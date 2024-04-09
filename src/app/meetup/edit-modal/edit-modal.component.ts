@@ -3,7 +3,6 @@ import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
 import { FormControl, FormGroup } from '@angular/forms';
 import { MeetupService } from 'src/app/services/meetup.service';
 import { Subscription } from 'rxjs';
-import { getLocaleDateFormat } from '@angular/common';
 
 @Component({
   selector: 'app-edit-modal',
@@ -44,12 +43,14 @@ export class EditModalComponent implements OnInit, OnDestroy{
   public deleteRecord()
   {
     this.meetUpService.deleteMeetUp(this.editMeetUp.value.id);
+    
     this.modal.closeAll();
   }
 
   public save()
   {
     this.editMeetUp.value.time = this.editMeetUp.value.date + "T" + this.editMeetUp.value.time + ":00.000Z";
+
     this.meetUpService.updateMeetUp(this.editMeetUp.value).subscribe();
 
     this.modal.closeAll();

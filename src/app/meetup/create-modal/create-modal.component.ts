@@ -43,7 +43,11 @@ export class CreateModalComponent implements OnInit, OnDestroy{
   public create()
   {
     this.createForm.value.time = this.createForm.value.date + "T" + this.createForm.value.time + ":00.000Z";
-    this.meetUpService.createNewMeetUp(this.createForm.value).subscribe();
+
+    this.meetUpService
+      .createNewMeetUp(this.createForm.value)
+        .subscribe();
+
     this.cancel();
   }
 }
