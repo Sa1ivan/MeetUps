@@ -1,6 +1,6 @@
 import { OnDestroy, OnInit, Component } from '@angular/core';
 import { inject } from '@angular/core';
-import { BehaviorSubject, Subject, Subscription, delay, switchMap, takeUntil } from 'rxjs';
+import { BehaviorSubject, Subject, delay, switchMap, takeUntil } from 'rxjs';
 import { MeetUp } from 'src/app/components/interfaces/meetup';
 import { MeetupService } from 'src/app/services/meetup.service';
 import { AuthService } from 'src/app/services/auth.service';
@@ -12,7 +12,6 @@ import { Router } from '@angular/router';
   styleUrls: ['./list.component.scss']
 })
 export class ListComponent implements OnInit, OnDestroy{
-  private subscription: Subscription | null = null;
   private authService: AuthService = inject(AuthService);
   private destroy$ = new Subject<void>();
   private router: Router = inject(Router);
@@ -89,45 +88,42 @@ export class ListComponent implements OnInit, OnDestroy{
     }
   }
 
-  public subscribe(meetUp: MeetUp)
+  public checkState(meetUp: MeetUp)
   {
-    let sub = false;
-
+    let buttonState = false;
     for(let key in meetUp.users){
       if(this.user === meetUp.users[key].id)
       {
-        sub = true;
+        buttonState = true;
       }
     }
 
-    if(sub)
-    {
-      this.unsubscribe(meetUp);
-    }
-    else
-    {
-      this.meetUpService
-        .subscribeToMeetUp(meetUp)
-        .pipe(
-          takeUntil(this.destroy$),
-          switchMap(() => this.meetUpService
-            .getMeetups()
-            .pipe(
-              takeUntil(this.destroy$),
-            ))
-        )
-        .subscribe(item => {
-          if(this.router.url === "/nav/all")
-          {
-            item = item.filter(record => record.owner !== null)
-          }
-          else
-          {
-            item = item.filter(record => record.owner !== null && record.owner.id === this.user);
-          }
-          this.meetUpService.meetUpList$.next(item);
-        });
-    }
+    buttonState ? this.unsubscribe(meetUp) : this.subscribe(meetUp);
+  }
+
+  private subscribe(meetUp: MeetUp)
+  {
+    this.meetUpService
+      .subscribeToMeetUp(meetUp)
+      .pipe(
+        takeUntil(this.destroy$),
+        switchMap(() => this.meetUpService
+          .getMeetups()
+          .pipe(
+            takeUntil(this.destroy$),
+          ))
+      )
+      .subscribe(item => {
+        if(this.router.url === "/nav/all")
+        {
+          item = item.filter(record => record.owner !== null)
+        }
+        else
+        {
+          item = item.filter(record => record.owner !== null && record.owner.id === this.user);
+        }
+        this.meetUpService.meetUpList$.next(item);
+      });
   }
 
   private unsubscribe(meetUp: MeetUp)
