@@ -134,21 +134,22 @@ export class ListComponent implements OnInit, OnDestroy{
   {
     this.meetUpService.unsubscribeToMeetUp(meetUp).pipe(
       takeUntil(this.destroy$),
-    ).subscribe(()=>{
-      this.meetUpService.getMeetups()
-      .pipe(
+      switchMap(() => this.meetUpService
+        .getMeetups()
+        .pipe(
           takeUntil(this.destroy$),
-        ).subscribe(item => {
-          if(this.router.url === "/nav/all")
-          {
-            item = item.filter(record => record.owner !== null)
-          }
-          else
-          {
-            item = item.filter(record => record.owner !== null && record.owner.id === this.user);
-          }
-          this.meetUpService.meetUpList$.next(item);
-        })
+        ))
+    )
+    .subscribe(item => {
+      if(this.router.url === "/nav/all")
+      {
+        item = item.filter(record => record.owner !== null)
+      }
+      else
+      {
+        item = item.filter(record => record.owner !== null && record.owner.id === this.user);
+      }
+      this.meetUpService.meetUpList$.next(item);
     });
   }
 
@@ -160,20 +161,21 @@ export class ListComponent implements OnInit, OnDestroy{
         .getMeetups()
           .pipe(
             takeUntil(this.destroy$),
-          ).subscribe(list => {
+          )
+          .subscribe(list => {
             list = list.filter(record => record.owner !== null);
 
             list.forEach(info => {
-              let str =  (info.name +
-                          info.duration +
-                          info.time +
-                          info.description +
-                          info.owner.fio +
-                          info.will_happen +
-                          info.target_audience +
-                          info.reason_to_come +
-                          info.location +
-                          info.need_to_know).toLowerCase();
+              const str =  (info.name +
+                            info.duration +
+                            info.time +
+                            info.description +
+                            info.owner.fio +
+                            info.will_happen +
+                            info.target_audience +
+                            info.reason_to_come +
+                            info.location +
+                            info.need_to_know).toLowerCase();
 
               if(!str.match((item).toLowerCase()))
               {

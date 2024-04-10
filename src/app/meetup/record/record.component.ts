@@ -69,6 +69,7 @@ export class RecordComponent implements OnInit{
 
   public sub()
   {
+    this.buttonState = !this.buttonState;
     this.subscribe.emit(this.sMeetUp);
   }
 
