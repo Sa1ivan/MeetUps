@@ -40,7 +40,7 @@ export class UserlistComponent implements OnDestroy, OnInit{
 
   public refresh(index: number, user: User)
   {
-    return user;
+    return user.id;
   }
 
   public deleteUser(user: User)

@@ -59,7 +59,7 @@ export class ListComponent implements OnInit, OnDestroy{
 
   public refresh(index: number, meetUp: MeetUp)
   {
-    return meetUp;
+    return meetUp.id;
   }
 
   private refreshMeetUp()
